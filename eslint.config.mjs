@@ -47,5 +47,11 @@ export default tseslint.config(
     rules: {
       'react-refresh/only-export-components': 'off'
     }
+  },
+  {
+    files: ['**/babel.config.js', '**/metro.config.js', '**/tailwind.config.js'],
+    rules: {
+      '@typescript-eslint/no-require-imports': 'off'
+    }
   }
 )

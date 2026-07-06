@@ -122,7 +122,10 @@ export default function App() {
                   <CartesianGrid stroke="rgba(148, 163, 184, 0.12)" horizontal={false} />
                   <XAxis type="number" stroke="#94a3b8" hide />
                   <YAxis type="category" dataKey="category" width={84} stroke="#94a3b8" />
-                  <Tooltip contentStyle={{ backgroundColor: '#0f172a', border: '1px solid rgba(148, 163, 184, 0.2)' }} formatter={(value: number) => formatCurrency(value)} />
+                  <Tooltip
+                    contentStyle={{ backgroundColor: '#0f172a', border: '1px solid rgba(148, 163, 184, 0.2)' }}
+                    formatter={(value) => formatCurrency(Number(value ?? 0))}
+                  />
                   <Bar dataKey="amountUsd" fill="#10b981" radius={8} />
                 </BarChart>
               </ResponsiveContainer>

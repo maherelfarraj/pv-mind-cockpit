@@ -3,10 +3,11 @@
   "compilerOptions": {
     "strict": true,
     "baseUrl": ".",
+    "ignoreDeprecations": "6.0",
     "paths": {
       "@/*": ["./src/*"]
     },
-    "types": ["nativewind/types", "expo-router/types"],
+    "types": ["nativewind/types"],
     "jsxImportSource": "nativewind"
   },
   "include": [
