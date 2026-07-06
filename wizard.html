@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>New Project Wizard — PV-Mind Cockpit</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="wizard.css" />
+</head>
+<body>
+
+<!-- ── Navbar ────────────────────────────────────────── -->
+<nav class="navbar">
+  <a href="index.html" class="navbar__brand">
+    <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <rect width="28" height="28" rx="6" fill="#1a6b3c"/>
+      <path d="M6 20 L14 8 L22 20" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M8 20 H20" stroke="#f5a623" stroke-width="2.2" stroke-linecap="round"/>
+      <circle cx="14" cy="8" r="2" fill="#f5a623"/>
+    </svg>
+    PV-Mind Cockpit
+  </a>
+  <span class="navbar__spacer"></span>
+  <span class="wizard-title">New Project Wizard</span>
+  <span class="navbar__spacer"></span>
+  <a href="index.html" class="btn btn--ghost btn--sm">Cancel</a>
+</nav>
+
+<!-- ── Wizard layout ─────────────────────────────────── -->
+<div class="wizard-layout">
+
+  <!-- Sidebar step list -->
+  <aside class="wizard-sidebar" aria-label="Wizard steps">
+    <ol class="step-list" id="step-list" role="list">
+      <!-- populated by JS -->
+    </ol>
+    <div class="sidebar-draft">
+      <button class="btn btn--ghost btn--sm" id="btn-save-draft" type="button">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+          <path d="M2 2h6l2 2v6a1 1 0 01-1 1H3a1 1 0 01-1-1V3a1 1 0 011-1z" stroke="currentColor" stroke-width="1.2"/>
+          <path d="M4 2v3h4V2" stroke="currentColor" stroke-width="1.2"/>
+          <rect x="3.5" y="7" width="5" height="3" rx="0.5" stroke="currentColor" stroke-width="1.2"/>
+        </svg>
+        Save Draft
+      </button>
+      <span class="sidebar-draft__hint text-xs text-muted" id="draft-hint"></span>
+    </div>
+  </aside>
+
+  <!-- Main wizard body -->
+  <div class="wizard-body">
+
+    <!-- Step progress bar (mobile) -->
+    <div class="wizard-progress-bar" aria-hidden="true">
+      <div class="wizard-progress-fill" id="progress-fill"></div>
+    </div>
+
+    <!-- Step panel container -->
+    <div id="step-panels">
+
+      <!-- ── STEP 1: Project Info ───────────────────────── -->
+      <section class="step-panel" data-step="1" aria-labelledby="step1-title">
+        <div class="step-panel__header">
+          <span class="step-badge">Step 1 of 10</span>
+          <h2 class="step-panel__title" id="step1-title">Project Info</h2>
+          <p class="step-panel__desc">Basic identification and location of the solar project.</p>
+        </div>
+        <div class="card">
+          <div class="form-grid form-grid--2">
+            <div class="form-group">
+              <label class="form-label" for="projectName">Project Name <span class="required">*</span></label>
+              <input class="form-control" id="projectName" name="projectInfo.name"
+                     type="text" placeholder="e.g. Sahara Solar Farm Phase 1"
+                     maxlength="120" autocomplete="off" />
+              <span class="form-error" id="err-projectName">Project name is required.</span>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="client">Client / Owner</label>
+              <input class="form-control" id="client" name="projectInfo.client"
+                     type="text" placeholder="e.g. GridMind EPC Ltd" maxlength="120" />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="location">Location / Site <span class="required">*</span></label>
+              <input class="form-control" id="location" name="projectInfo.location"
+                     type="text" placeholder="e.g. Al Qassim Region" maxlength="120" />
+              <span class="form-error" id="err-location">Location is required.</span>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="country">Country <span class="required">*</span></label>
+              <input class="form-control" id="country" name="projectInfo.country"
+                     type="text" placeholder="e.g. Saudi Arabia" maxlength="80" />
+              <span class="form-error" id="err-country">Country is required.</span>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="latitude">Latitude</label>
+              <input class="form-control" id="latitude" name="projectInfo.latitude"
+                     type="number" step="0.0001" min="-90" max="90"
+                     placeholder="e.g. 26.3450" />
+              <span class="form-hint">Decimal degrees (−90 to 90)</span>
+              <span class="form-error" id="err-latitude">Enter a valid latitude (−90 to 90).</span>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="longitude">Longitude</label>
+              <input class="form-control" id="longitude" name="projectInfo.longitude"
+                     type="number" step="0.0001" min="-180" max="180"
+                     placeholder="e.g. 43.9730" />
+              <span class="form-hint">Decimal degrees (−180 to 180)</span>
+              <span class="form-error" id="err-longitude">Enter a valid longitude (−180 to 180).</span>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="projectType">Project Type <span class="required">*</span></label>
+              <select class="form-control" id="projectType" name="projectInfo.projectType">
+                <option value="utility">Utility Scale</option>
+                <option value="commercial">Commercial &amp; Industrial (C&amp;I)</option>
+                <option value="industrial">Industrial Rooftop</option>
+                <option value="residential">Residential</option>
+              </select>
+            </div>
+            <div class="form-group form-group--full">
+              <label class="form-label" for="description">Description</label>
+              <textarea class="form-control" id="description" name="projectInfo.description"
+                        rows="3" placeholder="Brief project description, objectives, notes…"
+                        maxlength="1000"></textarea>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── STEP 2: Capacity ───────────────────────────── -->
+      <section class="step-panel hidden" data-step="2" aria-labelledby="step2-title">
+        <div class="step-panel__header">
+          <span class="step-badge">Step 2 of 10</span>
+          <h2 class="step-panel__title" id="step2-title">Capacity</h2>
+          <p class="step-panel__desc">Define the DC and AC capacity of the plant.</p>
+        </div>
+        <div class="card">
+          <div class="form-grid form-grid--2">
+            <div class="form-group">
+              <label class="form-label" for="dcCapacity">DC Capacity (kWp) <span class="required">*</span></label>
+              <input class="form-control" id="dcCapacity" name="capacity.dcCapacity_kWp"
+                     type="number" step="0.01" min="0.01"
+                     placeholder="e.g. 100000" />
+              <span class="form-hint">Total nameplate DC power (kW peak)</span>
+              <span class="form-error" id="err-dcCapacity">DC capacity must be a positive number.</span>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="acCapacity">AC Capacity (kW) <span class="required">*</span></label>
+              <input class="form-control" id="acCapacity" name="capacity.acCapacity_kW"
+                     type="number" step="0.01" min="0.01"
+                     placeholder="e.g. 80000" />
+              <span class="form-hint">Inverter output / grid connection</span>
+              <span class="form-error" id="err-acCapacity">AC capacity must be a positive number.</span>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="dcAcRatio">DC/AC Ratio</label>
+              <input class="form-control" id="dcAcRatio" name="capacity.dcAcRatio"
+                     type="number" step="0.01" min="0.5" max="2.5"
+                     placeholder="e.g. 1.25" />
+              <span class="form-hint">Typical range 1.10 – 1.40. Auto-calculated if blank.</span>
+              <span class="form-error" id="err-dcAcRatio">DC/AC ratio must be between 0.5 and 2.5.</span>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="numberOfStrings">Number of Strings</label>
+              <input class="form-control" id="numberOfStrings" name="capacity.numberOfStrings"
+                     type="number" step="1" min="1"
+                     placeholder="e.g. 5000" />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="numberOfArrays">Number of Arrays / Tables</label>
+              <input class="form-control" id="numberOfArrays" name="capacity.numberOfArrays"
+                     type="number" step="1" min="1"
+                     placeholder="e.g. 500" />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── STEP 3: PV Module ──────────────────────────── -->
+      <section class="step-panel hidden" data-step="3" aria-labelledby="step3-title">
+        <div class="step-panel__header">
+          <span class="step-badge">Step 3 of 10</span>
+          <h2 class="step-panel__title" id="step3-title">PV Module</h2>
+          <p class="step-panel__desc">Select and specify the photovoltaic module.</p>
+        </div>
+        <div class="card">
+          <div class="form-grid form-grid--2">
+            <div class="form-group">
+              <label class="form-label" for="pvManufacturer">Manufacturer <span class="required">*</span></label>
+              <input class="form-control" id="pvManufacturer" name="pvModule.manufacturer"
+                     type="text" placeholder="e.g. LONGi Solar" maxlength="80" />
+              <span class="form-error" id="err-pvManufacturer">Manufacturer is required.</span>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="pvModel">Module Model <span class="required">*</span></label>
+              <input class="form-control" id="pvModel" name="pvModule.model"
+                     type="text" placeholder="e.g. Hi-MO 6 LR5-72HTH-580M" maxlength="100" />
+              <span class="form-error" id="err-pvModel">Module model is required.</span>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="powerSTC">Power @ STC (Wp) <span class="required">*</span></label>
+              <input class="form-control" id="powerSTC" name="pvModule.powerSTC_Wp"
+                     type="number" step="0.1" min="1"
+                     placeholder="e.g. 580" />
+              <span class="form-error" id="err-powerSTC">STC power must be a positive number.</span>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="pvEfficiency">Module Efficiency (%)</label>
+              <input class="form-control" id="pvEfficiency" name="pvModule.efficiency"
+                     type="number" step="0.01" min="1" max="35"
+                     placeholder="e.g. 22.1" />
+              <span class="form-error" id="err-pvEfficiency">Efficiency must be between 1% and 35%.</span>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="voc">Voc (V)</label>
+              <input class="form-control" id="voc" name="pvModule.voc"
+                     type="number" step="0.1" min="0"
+                     placeholder="e.g. 49.8" />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="isc">Isc (A)</label>
+              <input class="form-control" id="isc" name="pvModule.isc"
+                     type="number" step="0.01" min="0"
+                     placeholder="e.g. 14.76" />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="vmp">Vmp (V)</label>
+              <input class="form-control" id="vmp" name="pvModule.vmp"
+                     type="number" step="0.1" min="0"
+                     placeholder="e.g. 41.7" />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="imp">Imp (A)</label>
+              <input class="form-control" id="imp" name="pvModule.imp"
+                     type="number" step="0.01" min="0"
+                     placeholder="e.g. 13.91" />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="tempCoeff">Temp. Coeff. Pmax (%/°C)</label>
+              <input class="form-control" id="tempCoeff" name="pvModule.tempCoeffPmax"
+                     type="number" step="0.001" min="-1" max="0"
+                     placeholder="e.g. -0.340" />
+              <span class="form-hint">Typically −0.25 to −0.45 %/°C</span>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="modulesPerString">Modules per String</label>
+              <input class="form-control" id="modulesPerString" name="pvModule.modulesPerString"
+                     type="number" step="1" min="1"
+                     placeholder="e.g. 28" />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── STEP 4: Inverter ───────────────────────────── -->
+      <section class="step-panel hidden" data-step="4" aria-labelledby="step4-title">
+        <div class="step-panel__header">
+          <span class="step-badge">Step 4 of 10</span>
+          <h2 class="step-panel__title" id="step4-title">Inverter</h2>
+          <p class="step-panel__desc">Specify the inverter technology and configuration.</p>
+        </div>
+        <div class="card">
+          <div class="form-grid form-grid--2">
+            <div class="form-group">
+              <label class="form-label" for="invManufacturer">Manufacturer <span class="required">*</span></label>
+              <input class="form-control" id="invManufacturer" name="inverter.manufacturer"
+                     type="text" placeholder="e.g. Huawei, SMA, ABB" maxlength="80" />
+              <span class="form-error" id="err-invManufacturer">Manufacturer is required.</span>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="invModel">Inverter Model <span class="required">*</span></label>
+              <input class="form-control" id="invModel" name="inverter.model"
+                     type="text" placeholder="e.g. SUN2000-185KTL-H1" maxlength="100" />
+              <span class="form-error" id="err-invModel">Model is required.</span>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="invPower">Rated Power (kW) <span class="required">*</span></label>
+              <input class="form-control" id="invPower" name="inverter.ratedPower_kW"
+                     type="number" step="0.1" min="0.1"
+                     placeholder="e.g. 185" />
+              <span class="form-error" id="err-invPower">Rated power must be a positive number.</span>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="invEfficiency">Max Efficiency (%)</label>
+              <input class="form-control" id="invEfficiency" name="inverter.efficiency"
+                     type="number" step="0.01" min="80" max="100"
+                     placeholder="e.g. 98.8" />
+              <span class="form-error" id="err-invEfficiency">Efficiency must be between 80% and 100%.</span>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="mpptMin">MPPT Voltage Min (V)</label>
+              <input class="form-control" id="mpptMin" name="inverter.mpptRangeMin"
+                     type="number" step="1" min="0"
+                     placeholder="e.g. 200" />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="mpptMax">MPPT Voltage Max (V)</label>
+              <input class="form-control" id="mpptMax" name="inverter.mpptRangeMax"
+                     type="number" step="1" min="0"
+                     placeholder="e.g. 1500" />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="numberOfMPPT">Number of MPPT Inputs</label>
+              <input class="form-control" id="numberOfMPPT" name="inverter.numberOfMPPT"
+                     type="number" step="1" min="1"
+                     placeholder="e.g. 12" />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="invQuantity">Quantity <span class="required">*</span></label>
+              <input class="form-control" id="invQuantity" name="inverter.quantity"
+                     type="number" step="1" min="1"
+                     placeholder="e.g. 432" />
+              <span class="form-error" id="err-invQuantity">Quantity must be a positive integer.</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── STEP 5: Structure ──────────────────────────── -->
+      <section class="step-panel hidden" data-step="5" aria-labelledby="step5-title">
+        <div class="step-panel__header">
+          <span class="step-badge">Step 5 of 10</span>
+          <h2 class="step-panel__title" id="step5-title">Structure</h2>
+          <p class="step-panel__desc">Mounting system and racking configuration.</p>
+        </div>
+        <div class="card">
+          <div class="form-grid form-grid--2">
+            <div class="form-group">
+              <label class="form-label" for="mountingType">Mounting Type <span class="required">*</span></label>
+              <select class="form-control" id="mountingType" name="structure.mountingType">
+                <option value="fixed-tilt">Fixed Tilt (Ground)</option>
+                <option value="single-axis-tracker">Single-Axis Tracker (SAT)</option>
+                <option value="dual-axis-tracker">Dual-Axis Tracker (DAT)</option>
+                <option value="rooftop">Rooftop (Fixed)</option>
+                <option value="carport">Carport / Canopy</option>
+                <option value="floating">Floating (FPV)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="structureType">Structure Material / Brand</label>
+              <input class="form-control" id="structureType" name="structure.structureType"
+                     type="text" placeholder="e.g. Nextracker NX Horizon" maxlength="100" />
+            </div>
+            <div class="form-group" id="tiltGroup">
+              <label class="form-label" for="tiltAngle">Tilt Angle (°)</label>
+              <input class="form-control" id="tiltAngle" name="structure.tiltAngle"
+                     type="number" step="0.5" min="0" max="90"
+                     placeholder="e.g. 25" />
+              <span class="form-hint">0° = horizontal, 90° = vertical</span>
+              <span class="form-error" id="err-tiltAngle">Tilt must be between 0° and 90°.</span>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="azimuth">Azimuth (°)</label>
+              <input class="form-control" id="azimuth" name="structure.azimuth"
+                     type="number" step="1" min="0" max="360"
+                     placeholder="e.g. 180 (South)" />
+              <span class="form-hint">0°=N, 90°=E, 180°=S, 270°=W</span>
+              <span class="form-error" id="err-azimuth">Azimuth must be between 0° and 360°.</span>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="gcr">Ground Coverage Ratio (GCR)</label>
+              <input class="form-control" id="gcr" name="structure.groundCoverageRatio"
+                     type="number" step="0.01" min="0.1" max="1.0"
+                     placeholder="e.g. 0.40" />
+              <span class="form-hint">Typical range 0.30 – 0.55</span>
+              <span class="form-error" id="err-gcr">GCR must be between 0.1 and 1.0.</span>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="pitchM">Row Pitch (m)</label>
+              <input class="form-control" id="pitchM" name="structure.pitchM"
+                     type="number" step="0.1" min="0.5"
+                     placeholder="e.g. 8.5" />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── STEP 6: BESS (Optional) ────────────────────── -->
+      <section class="step-panel hidden" data-step="6" aria-labelledby="step6-title">
+        <div class="step-panel__header">
+          <span class="step-badge">Step 6 of 10</span>
+          <h2 class="step-panel__title" id="step6-title">BESS <span class="badge badge--gray">Optional</span></h2>
+          <p class="step-panel__desc">Battery Energy Storage System — enable only if project includes storage.</p>
+        </div>
+        <div class="card">
+          <div class="toggle-row">
+            <label class="toggle" for="bessEnabled">
+              <input type="checkbox" id="bessEnabled" name="bess.enabled" />
+              <span class="toggle__slider"></span>
+            </label>
+            <span class="toggle-label">Include BESS in this project</span>
+          </div>
+
+          <div id="bess-fields" class="mt-4 hidden">
+            <div class="form-grid form-grid--2">
+              <div class="form-group">
+                <label class="form-label" for="bessManufacturer">Manufacturer</label>
+                <input class="form-control" id="bessManufacturer" name="bess.manufacturer"
+                       type="text" placeholder="e.g. CATL, BYD, Tesla" maxlength="80" />
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="bessModel">Model</label>
+                <input class="form-control" id="bessModel" name="bess.model"
+                       type="text" placeholder="e.g. EnerOne Plus" maxlength="100" />
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="bessEnergy">Energy Capacity (kWh) <span class="required">*</span></label>
+                <input class="form-control" id="bessEnergy" name="bess.energyCapacity_kWh"
+                       type="number" step="0.1" min="0.1"
+                       placeholder="e.g. 200000" />
+                <span class="form-error" id="err-bessEnergy">Energy capacity must be a positive number.</span>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="bessPower">Power (kW) <span class="required">*</span></label>
+                <input class="form-control" id="bessPower" name="bess.power_kW"
+                       type="number" step="0.1" min="0.1"
+                       placeholder="e.g. 80000" />
+                <span class="form-error" id="err-bessPower">Power must be a positive number.</span>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="bessChemistry">Chemistry</label>
+                <select class="form-control" id="bessChemistry" name="bess.chemistry">
+                  <option value="LFP">LFP (Lithium Iron Phosphate)</option>
+                  <option value="NMC">NMC (Nickel Manganese Cobalt)</option>
+                  <option value="NCA">NCA (Nickel Cobalt Aluminium)</option>
+                  <option value="VRLA">VRLA Lead-Acid</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="bessDod">Depth of Discharge (%)</label>
+                <input class="form-control" id="bessDod" name="bess.dod"
+                       type="number" step="0.1" min="50" max="100"
+                       placeholder="e.g. 90" />
+                <span class="form-error" id="err-bessDod">DoD must be between 50% and 100%.</span>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="bessRte">Round-Trip Efficiency (%)</label>
+                <input class="form-control" id="bessRte" name="bess.rte"
+                       type="number" step="0.1" min="60" max="100"
+                       placeholder="e.g. 92" />
+                <span class="form-error" id="err-bessRte">RTE must be between 60% and 100%.</span>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="bessCycles">Cycle Life</label>
+                <input class="form-control" id="bessCycles" name="bess.cycles"
+                       type="number" step="100" min="100"
+                       placeholder="e.g. 6000" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── STEP 7: Site Conditions ────────────────────── -->
+      <section class="step-panel hidden" data-step="7" aria-labelledby="step7-title">
+        <div class="step-panel__header">
+          <span class="step-badge">Step 7 of 10</span>
+          <h2 class="step-panel__title" id="step7-title">Site Conditions</h2>
+          <p class="step-panel__desc">Solar resource and environmental data for the site.</p>
+        </div>
+        <div class="card">
+          <div class="form-grid form-grid--2">
+            <div class="form-group">
+              <label class="form-label" for="ghi">GHI (kWh/m²/yr) <span class="required">*</span></label>
+              <input class="form-control" id="ghi" name="siteConditions.ghi_kWhm2yr"
+                     type="number" step="1" min="500" max="3000"
+                     placeholder="e.g. 2200" />
+              <span class="form-hint">Global Horizontal Irradiance</span>
+              <span class="form-error" id="err-ghi">GHI must be between 500 and 3000 kWh/m²/yr.</span>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="dni">DNI (kWh/m²/yr)</label>
+              <input class="form-control" id="dni" name="siteConditions.dni_kWhm2yr"
+                     type="number" step="1" min="0"
+                     placeholder="e.g. 2800" />
+              <span class="form-hint">Direct Normal Irradiance</span>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="dhi">DHI (kWh/m²/yr)</label>
+              <input class="form-control" id="dhi" name="siteConditions.dhi_kWhm2yr"
+                     type="number" step="1" min="0"
+                     placeholder="e.g. 400" />
+              <span class="form-hint">Diffuse Horizontal Irradiance</span>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="avgTemp">Avg. Ambient Temp. (°C)</label>
+              <input class="form-control" id="avgTemp" name="siteConditions.avgTemp_C"
+                     type="number" step="0.1" min="-50" max="60"
+                     placeholder="e.g. 28" />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="maxTemp">Max. Ambient Temp. (°C)</label>
+              <input class="form-control" id="maxTemp" name="siteConditions.maxTemp_C"
+                     type="number" step="0.1" min="-50" max="80"
+                     placeholder="e.g. 48" />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="minTemp">Min. Ambient Temp. (°C)</label>
+              <input class="form-control" id="minTemp" name="siteConditions.minTemp_C"
+                     type="number" step="0.1" min="-60" max="40"
+                     placeholder="e.g. 5" />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="windSpeed">Wind Speed (m/s)</label>
+              <input class="form-control" id="windSpeed" name="siteConditions.windSpeed_ms"
+                     type="number" step="0.1" min="0"
+                     placeholder="e.g. 5.5" />
+              <span class="form-hint">Annual average at 10 m height</span>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="altitude">Altitude (m.a.s.l.)</label>
+              <input class="form-control" id="altitude" name="siteConditions.altitude_m"
+                     type="number" step="1" min="-500"
+                     placeholder="e.g. 650" />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="soilingRate">Annual Soiling Loss (%/yr)</label>
+              <input class="form-control" id="soilingRate" name="siteConditions.soilingLossRate"
+                     type="number" step="0.01" min="0" max="20"
+                     placeholder="e.g. 2.5" />
+              <span class="form-error" id="err-soilingRate">Soiling loss must be between 0% and 20%.</span>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="snowLoadZone">Snow Load Zone</label>
+              <input class="form-control" id="snowLoadZone" name="siteConditions.snowLoadZone"
+                     type="text" placeholder="e.g. Zone II (EN 1991)" maxlength="80" />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── STEP 8: Yield Assumptions ──────────────────── -->
+      <section class="step-panel hidden" data-step="8" aria-labelledby="step8-title">
+        <div class="step-panel__header">
+          <span class="step-badge">Step 8 of 10</span>
+          <h2 class="step-panel__title" id="step8-title">Yield Assumptions</h2>
+          <p class="step-panel__desc">Energy yield modelling parameters and loss assumptions.</p>
+        </div>
+        <div class="card">
+          <div class="form-grid form-grid--2">
+            <div class="form-group">
+              <label class="form-label" for="perfRatio">Performance Ratio (PR) <span class="required">*</span></label>
+              <input class="form-control" id="perfRatio" name="yieldAssumptions.performanceRatio"
+                     type="number" step="0.001" min="0.5" max="1.0"
+                     placeholder="e.g. 0.80" />
+              <span class="form-hint">Decimal form: 0.75 = 75%</span>
+              <span class="form-error" id="err-perfRatio">Performance Ratio must be between 0.50 and 1.00.</span>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="soilingLoss">Soiling Loss (%)</label>
+              <input class="form-control" id="soilingLoss" name="yieldAssumptions.soilingLoss"
+                     type="number" step="0.01" min="0" max="30"
+                     placeholder="e.g. 3.5" />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="shadingLoss">Shading Loss (%)</label>
+              <input class="form-control" id="shadingLoss" name="yieldAssumptions.shadingLoss"
+                     type="number" step="0.01" min="0" max="30"
+                     placeholder="e.g. 1.5" />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="mismatchLoss">Mismatch Loss (%)</label>
+              <input class="form-control" id="mismatchLoss" name="yieldAssumptions.mismatchLoss"
+                     type="number" step="0.01" min="0" max="10"
+                     placeholder="e.g. 1.0" />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="wiringLoss">DC/AC Wiring Loss (%)</label>
+              <input class="form-control" id="wiringLoss" name="yieldAssumptions.wiringLoss"
+                     type="number" step="0.01" min="0" max="10"
+                     placeholder="e.g. 1.5" />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="availabilityLoss">Availability Loss (%)</label>
+              <input class="form-control" id="availabilityLoss" name="yieldAssumptions.availabilityLoss"
+                     type="number" step="0.01" min="0" max="10"
+                     placeholder="e.g. 1.0" />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="degradationRate">Annual Degradation (%/yr)</label>
+              <input class="form-control" id="degradationRate" name="yieldAssumptions.degradationRate"
+                     type="number" step="0.01" min="0" max="5"
+                     placeholder="e.g. 0.50" />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="p50">P50 Annual Yield (MWh)</label>
+              <input class="form-control" id="p50" name="yieldAssumptions.p50_kWh"
+                     type="number" step="1" min="0"
+                     placeholder="e.g. 185000" />
+              <span class="form-hint">50th percentile expected generation</span>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="p90">P90 Annual Yield (MWh)</label>
+              <input class="form-control" id="p90" name="yieldAssumptions.p90_kWh"
+                     type="number" step="1" min="0"
+                     placeholder="e.g. 175000" />
+              <span class="form-hint">90th percentile (conservative estimate)</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── STEP 9: CAPEX Assumptions ──────────────────── -->
+      <section class="step-panel hidden" data-step="9" aria-labelledby="step9-title">
+        <div class="step-panel__header">
+          <span class="step-badge">Step 9 of 10</span>
+          <h2 class="step-panel__title" id="step9-title">CAPEX Assumptions</h2>
+          <p class="step-panel__desc">Capital expenditure cost breakdown estimates.</p>
+        </div>
+        <div class="card">
+          <div class="form-grid form-grid--2">
+            <div class="form-group">
+              <label class="form-label" for="currency">Currency</label>
+              <select class="form-control" id="currency" name="capexAssumptions.currency">
+                <option value="USD">USD — US Dollar</option>
+                <option value="EUR">EUR — Euro</option>
+                <option value="GBP">GBP — British Pound</option>
+                <option value="SAR">SAR — Saudi Riyal</option>
+                <option value="AED">AED — UAE Dirham</option>
+                <option value="EGP">EGP — Egyptian Pound</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="pvModuleCost">PV Module Cost ($/Wp)</label>
+              <input class="form-control" id="pvModuleCost" name="capexAssumptions.pvModuleCost_perWp"
+                     type="number" step="0.001" min="0"
+                     placeholder="e.g. 0.22" />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="inverterCost">Inverter Cost ($/W)</label>
+              <input class="form-control" id="inverterCost" name="capexAssumptions.inverterCost_perW"
+                     type="number" step="0.001" min="0"
+                     placeholder="e.g. 0.06" />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="structureCost">Structure Cost ($/Wp)</label>
+              <input class="form-control" id="structureCost" name="capexAssumptions.structureCost_perWp"
+                     type="number" step="0.001" min="0"
+                     placeholder="e.g. 0.08" />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="bessCostPerKwh">BESS Cost ($/kWh)</label>
+              <input class="form-control" id="bessCostPerKwh" name="capexAssumptions.bessCost_perKwh"
+                     type="number" step="1" min="0"
+                     placeholder="e.g. 180" />
+              <span class="form-hint">Only if BESS is included</span>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="civilCost">Civil Works Cost ($/Wp)</label>
+              <input class="form-control" id="civilCost" name="capexAssumptions.civilCost_perWp"
+                     type="number" step="0.001" min="0"
+                     placeholder="e.g. 0.05" />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="electricalCost">Electrical BOS Cost ($/Wp)</label>
+              <input class="form-control" id="electricalCost" name="capexAssumptions.electricalCost_perWp"
+                     type="number" step="0.001" min="0"
+                     placeholder="e.g. 0.12" />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="epcMargin">EPC Margin (%)</label>
+              <input class="form-control" id="epcMargin" name="capexAssumptions.epcMargin_pct"
+                     type="number" step="0.1" min="0" max="50"
+                     placeholder="e.g. 12" />
+            </div>
+            <div class="form-group form-group--full">
+              <label class="form-label" for="totalCapex">Total CAPEX (override)</label>
+              <input class="form-control" id="totalCapex" name="capexAssumptions.totalCapex_USD"
+                     type="number" step="1000" min="0"
+                     placeholder="Auto-calculated, or enter override" />
+              <span class="form-hint" id="capex-auto-hint">Auto-calculated from the unit costs above × DC capacity.</span>
+            </div>
+          </div>
+          <!-- CAPEX breakdown preview -->
+          <div class="capex-preview mt-4" id="capex-preview" style="display:none;">
+            <h4 class="text-sm font-medium mb-2">CAPEX Breakdown Preview</h4>
+            <div class="capex-table" id="capex-table"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── STEP 10: Review & Create ───────────────────── -->
+      <section class="step-panel hidden" data-step="10" aria-labelledby="step10-title">
+        <div class="step-panel__header">
+          <span class="step-badge">Step 10 of 10</span>
+          <h2 class="step-panel__title" id="step10-title">Review &amp; Create</h2>
+          <p class="step-panel__desc">Review all entered data before creating the project record.</p>
+        </div>
+        <!-- Review summary injected by JS -->
+        <div id="review-summary"></div>
+        <div class="review-actions">
+          <div class="alert alert--info">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.4"/>
+              <path d="M8 7v5M8 5v0.01" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+            <span>
+              Creating the project will generate linked shells for:
+              <strong>PV Design, BESS Design, Yield Simulation, CAPEX Sheet, BOM, SLD, Simulation, and SCADA</strong>.
+            </span>
+          </div>
+        </div>
+      </section>
+
+    </div><!-- /step-panels -->
+
+    <!-- ── Wizard footer nav ──────────────────────────── -->
+    <div class="wizard-footer">
+      <button class="btn btn--ghost" id="btn-prev" type="button" disabled>
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+          <path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Previous
+      </button>
+      <div class="wizard-footer__center" id="step-indicator">Step 1 of 10</div>
+      <div class="wizard-footer__right">
+        <button class="btn btn--outline" id="btn-save-draft-footer" type="button">Save Draft</button>
+        <button class="btn btn--primary" id="btn-next" type="button">
+          Next
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+            <path d="M5 2l5 5-5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        <button class="btn btn--primary hidden" id="btn-create" type="button">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+            <path d="M2 7l4 4 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Create Project
+        </button>
+      </div>
+    </div>
+
+  </div><!-- /wizard-body -->
+</div><!-- /wizard-layout -->
+
+<!-- Toast container -->
+<div id="toast-container" aria-live="polite"></div>
+
+<script type="module" src="wizard.js"></script>
+</body>
+</html>
