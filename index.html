@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PV Mind Cockpit Navigation</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <button
+      class="sidebar-toggle"
+      aria-controls="app-sidebar"
+      aria-expanded="false"
+      type="button"
+    >
+      ☰ Menu
+    </button>
+
+    <div class="overlay" hidden></div>
+
+    <aside id="app-sidebar" class="sidebar" aria-label="Main navigation">
+      <h1 class="sidebar-title">PV Mind Cockpit</h1>
+      <nav>
+        <ul class="menu">
+          <li><a href="#">Dashboard</a></li>
+
+          <li class="menu-group">
+            <span>Projects</span>
+            <ul>
+              <li><a href="#">All Projects</a></li>
+              <li><a href="#">New Project</a></li>
+              <li><a href="#">Project Detail</a></li>
+            </ul>
+          </li>
+
+          <li class="menu-group">
+            <span>Design &amp; Configuration</span>
+            <ul>
+              <li><a href="#">PV Configurator</a></li>
+              <li><a href="#">BESS Configurator</a></li>
+              <li><a href="#">Stringing &amp; MPPT</a></li>
+              <li><a href="#">Yield Estimate</a></li>
+              <li><a href="#">CAPEX Estimate</a></li>
+              <li><a href="#">BOM / BOQ</a></li>
+              <li><a href="#">SLD Preview</a></li>
+            </ul>
+          </li>
+
+          <li class="menu-group">
+            <span>Simulation Studio</span>
+            <ul>
+              <li><a href="#">Project Setup</a></li>
+              <li><a href="#">Site &amp; Weather</a></li>
+              <li><a href="#">Variants</a></li>
+              <li><a href="#">Orientation</a></li>
+              <li><a href="#">System / Sub-Arrays</a></li>
+              <li><a href="#">PV Module</a></li>
+              <li><a href="#">Inverter</a></li>
+              <li><a href="#">Bifacial Setup</a></li>
+              <li><a href="#">Detailed Losses</a></li>
+              <li><a href="#">Horizon</a></li>
+              <li><a href="#">Near Shadings</a></li>
+              <li><a href="#">3D Shading Scene</a></li>
+              <li><a href="#">Energy Management</a></li>
+              <li><a href="#">P50 / P90</a></li>
+              <li><a href="#">Run Simulation</a></li>
+              <li><a href="#">Results</a></li>
+              <li><a href="#">Loss Diagram</a></li>
+              <li><a href="#">Simulation Report</a></li>
+            </ul>
+          </li>
+
+          <li class="menu-group">
+            <span>Operations</span>
+            <ul>
+              <li><a href="#">SCADA Overview</a></li>
+              <li><a href="#">SCADA Live Monitor</a></li>
+              <li><a href="#">Site Monitor</a></li>
+              <li><a href="#">Inverters</a></li>
+              <li><a href="#">BESS Monitor</a></li>
+              <li><a href="#">Weather Station</a></li>
+              <li><a href="#">Grid Meter</a></li>
+              <li><a href="#">Connectors</a></li>
+              <li><a href="#">Tag Dictionary</a></li>
+              <li><a href="#">Historian Trends</a></li>
+              <li><a href="#">Alarm Workbench</a></li>
+              <li><a href="#">Alarm → Work Orders</a></li>
+              <li><a href="#">Alarm SLA Aging</a></li>
+              <li><a href="#">Anomaly Board</a></li>
+              <li><a href="#">Anomaly RCA</a></li>
+              <li><a href="#">Fleet KPIs</a></li>
+              <li><a href="#">KPI Variance</a></li>
+              <li><a href="#">Fleet Health</a></li>
+            </ul>
+          </li>
+
+          <li class="menu-group">
+            <span>Commercial</span>
+            <ul>
+              <li><a href="#">CAPEX</a></li>
+              <li><a href="#">BOM / BOQ</a></li>
+              <li><a href="#">Financial Summary</a></li>
+            </ul>
+          </li>
+
+          <li><a href="#">Reports</a></li>
+          <li><a href="#">Admin Settings</a></li>
+        </ul>
+      </nav>
+    </aside>
+
+    <main class="content">
+      <h2>Dashboard</h2>
+      <p>Select a navigation item from the sidebar.</p>
+    </main>
+
+    <script src="./script.js"></script>
+  </body>
+</html>
