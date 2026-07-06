@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PV-Mind Cockpit — Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="dashboard.css" />
+</head>
+<body>
+
+<!-- ── Navbar ─────────────────────────────────────────── -->
+<nav class="navbar">
+  <a href="index.html" class="navbar__brand">
+    <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <rect width="28" height="28" rx="6" fill="#1a6b3c"/>
+      <path d="M6 20 L14 8 L22 20" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M8 20 H20" stroke="#f5a623" stroke-width="2.2" stroke-linecap="round"/>
+      <circle cx="14" cy="8" r="2" fill="#f5a623"/>
+    </svg>
+    PV-Mind Cockpit
+  </a>
+  <span class="navbar__spacer"></span>
+  <a href="wizard.html" class="btn btn--primary">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+      <path d="M7 1v12M1 7h12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+    </svg>
+    New Project
+  </a>
+</nav>
+
+<!-- ── Hero banner ────────────────────────────────────── -->
+<div class="hero">
+  <div class="hero__inner">
+    <p class="hero__subtitle">GridMind EPC Design Platform</p>
+    <h1 class="hero__title">Solar PV + BESS Project Management</h1>
+    <p class="hero__desc">
+      Design, simulate, and manage utility-scale and commercial solar PV projects.<br/>
+      From CAPEX modelling to SCADA commissioning — all in one cockpit.
+    </p>
+    <a href="wizard.html" class="btn btn--primary btn--lg">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+        <path d="M8 1v14M1 8h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+      Start New Project
+    </a>
+  </div>
+</div>
+
+<!-- ── Main content ───────────────────────────────────── -->
+<main class="page-container">
+
+  <!-- Stats row -->
+  <div class="stats-row" id="stats-row">
+    <div class="stat-card">
+      <span class="stat-card__value" id="stat-total">0</span>
+      <span class="stat-card__label">Total Projects</span>
+    </div>
+    <div class="stat-card">
+      <span class="stat-card__value" id="stat-active">0</span>
+      <span class="stat-card__label">Active</span>
+    </div>
+    <div class="stat-card">
+      <span class="stat-card__value" id="stat-draft">0</span>
+      <span class="stat-card__label">Drafts</span>
+    </div>
+    <div class="stat-card">
+      <span class="stat-card__value" id="stat-mwp">0</span>
+      <span class="stat-card__label">Total MWp</span>
+    </div>
+  </div>
+
+  <!-- Section header -->
+  <div class="section-header">
+    <h2 class="section-header__title">Projects</h2>
+    <div class="flex gap-2">
+      <input type="search" class="form-control" id="search-input"
+             placeholder="Search projects…" style="width:220px;" aria-label="Search projects"/>
+      <a href="wizard.html" class="btn btn--primary">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+          <path d="M7 1v12M1 7h12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        New Project
+      </a>
+    </div>
+  </div>
+
+  <!-- Project grid -->
+  <div class="project-grid" id="project-grid">
+    <!-- populated by JS -->
+  </div>
+
+  <!-- Empty state -->
+  <div class="empty-state hidden" id="empty-state">
+    <div class="empty-state__icon" aria-hidden="true">
+      <svg width="56" height="56" viewBox="0 0 56 56" fill="none">
+        <rect width="56" height="56" rx="12" fill="#e8f5ee"/>
+        <path d="M14 40 L28 18 L42 40" stroke="#1a6b3c" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M16 40 H40" stroke="#f5a623" stroke-width="3" stroke-linecap="round"/>
+        <circle cx="28" cy="18" r="3.5" fill="#f5a623"/>
+      </svg>
+    </div>
+    <h3 class="empty-state__title">No projects yet</h3>
+    <p class="empty-state__desc">Get started by creating your first solar PV project.</p>
+    <a href="wizard.html" class="btn btn--primary btn--lg mt-4">Create First Project</a>
+  </div>
+
+</main>
+
+<!-- Toast container -->
+<div id="toast-container" aria-live="polite"></div>
+
+<script src="dashboard.js"></script>
+</body>
+</html>
