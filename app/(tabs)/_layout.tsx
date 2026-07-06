@@ -1,16 +1,10 @@
-import { SymbolView } from 'expo-symbols';
 import { Tabs } from 'expo-router';
+import { ColorValue, Text } from 'react-native';
 
 import { palette } from '@/constants/theme';
 
-type IconName = {
-  ios: string;
-  android: string;
-  web: string;
-};
-
-function TabIcon({ color, name }: { color: string; name: IconName }) {
-  return <SymbolView name={name} tintColor={color} size={22} />;
+function TabIcon({ color, symbol }: { color: ColorValue; symbol: string }) {
+  return <Text style={{ color, fontSize: 18 }}>{symbol}</Text>;
 }
 
 export default function TabLayout() {
@@ -33,14 +27,7 @@ export default function TabLayout() {
         options={{
           title: 'Dashboard',
           tabBarIcon: ({ color }) => (
-            <TabIcon
-              color={color}
-              name={{
-                ios: 'rectangle.grid.2x2.fill',
-                android: 'dashboard',
-                web: 'dashboard',
-              }}
-            />
+            <TabIcon color={color} symbol="◫" />
           ),
         }}
       />
@@ -49,14 +36,7 @@ export default function TabLayout() {
         options={{
           title: 'Projects',
           tabBarIcon: ({ color }) => (
-            <TabIcon
-              color={color}
-              name={{
-                ios: 'folder.fill',
-                android: 'folder',
-                web: 'folder',
-              }}
-            />
+            <TabIcon color={color} symbol="▣" />
           ),
         }}
       />
@@ -65,14 +45,7 @@ export default function TabLayout() {
         options={{
           title: 'Operations',
           tabBarIcon: ({ color }) => (
-            <TabIcon
-              color={color}
-              name={{
-                ios: 'bolt.horizontal.circle.fill',
-                android: 'monitoring',
-                web: 'monitoring',
-              }}
-            />
+            <TabIcon color={color} symbol="⚡" />
           ),
         }}
       />
@@ -81,14 +54,7 @@ export default function TabLayout() {
         options={{
           title: 'Reports',
           tabBarIcon: ({ color }) => (
-            <TabIcon
-              color={color}
-              name={{
-                ios: 'doc.text.fill',
-                android: 'description',
-                web: 'description',
-              }}
-            />
+            <TabIcon color={color} symbol="▤" />
           ),
         }}
       />
@@ -97,14 +63,7 @@ export default function TabLayout() {
         options={{
           title: 'Settings',
           tabBarIcon: ({ color }) => (
-            <TabIcon
-              color={color}
-              name={{
-                ios: 'gearshape.fill',
-                android: 'settings',
-                web: 'settings',
-              }}
-            />
+            <TabIcon color={color} symbol="⚙" />
           ),
         }}
       />

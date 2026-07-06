@@ -8,7 +8,7 @@ type ResponsiveCardGridProps = {
 export function ResponsiveCardGrid({ children }: ResponsiveCardGridProps) {
   const { width } = useWindowDimensions();
   const columns = width >= 1000 ? 3 : width >= 640 ? 2 : 1;
-  const itemWidth = `${100 / columns}%`;
+  const itemWidth = width / columns - 12;
 
   return (
     <View style={styles.grid}>

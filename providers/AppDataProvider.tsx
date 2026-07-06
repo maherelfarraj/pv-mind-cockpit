@@ -79,7 +79,7 @@ export function AppDataProvider({ children }: PropsWithChildren) {
       draft.status === 'pending'
         ? {
             ...draft,
-            status: 'synced',
+            status: 'synced' as const,
             syncedAt,
           }
         : draft
