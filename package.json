@@ -1,0 +1,27 @@
+{
+  "name": "pv-mind-cockpit",
+  "version": "0.1.0",
+  "private": true,
+  "description": "PV_Mind Cockpit — cross-platform solar PV + BESS design, simulation, yield, SCADA and reporting platform",
+  "homepage": "https://pvmind.ai",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "lint": "turbo run lint",
+    "test": "turbo run test",
+    "typecheck": "turbo run typecheck",
+    "clean": "turbo run clean && rm -rf node_modules"
+  },
+  "devDependencies": {
+    "turbo": "^2.0.0",
+    "typescript": "^5.4.0"
+  },
+  "engines": {
+    "node": ">=20.0.0",
+    "npm": ">=10.0.0"
+  }
+}
