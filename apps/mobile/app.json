@@ -1,0 +1,11 @@
+{
+  "expo": {
+    "name": "PV Mind Cockpit",
+    "slug": "pvmind-cockpit",
+    "version": "1.0.0",
+    "scheme": "pvmind",
+    "web": { "bundler": "metro", "output": "static", "favicon": "./assets/favicon.png" },
+    "plugins": ["expo-router"],
+    "experiments": { "typedRoutes": true }
+  }
+}

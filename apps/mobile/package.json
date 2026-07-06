@@ -1,0 +1,38 @@
+{
+  "name": "@pvmind/mobile",
+  "version": "0.1.0",
+  "private": true,
+  "main": "expo-router/entry",
+  "scripts": {
+    "dev": "expo start",
+    "build:android": "eas build --platform android",
+    "build:ios": "eas build --platform ios",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint src --ext .ts,.tsx",
+    "clean": "rimraf .expo"
+  },
+  "dependencies": {
+    "@pvmind/calc-engine": "*",
+    "@pvmind/types": "*",
+    "@react-native-async-storage/async-storage": "2.2.0",
+    "@react-native-community/netinfo": "12.0.1",
+    "expo": "~57.0.2",
+    "expo-constants": "~57.0.3",
+    "expo-font": "~57.0.0",
+    "expo-linking": "~57.0.1",
+    "expo-router": "~57.0.3",
+    "expo-splash-screen": "~57.0.2",
+    "expo-status-bar": "~57.0.0",
+    "react": "19.2.3",
+    "react-dom": "19.2.3",
+    "react-native": "0.86.0",
+    "react-native-safe-area-context": "~5.7.0",
+    "react-native-screens": "4.25.2",
+    "react-native-web": "~0.21.0"
+  },
+  "devDependencies": {
+    "@types/react": "~19.2.2",
+    "rimraf": "^5.0.10",
+    "typescript": "~6.0.3"
+  }
+}
