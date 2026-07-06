@@ -1,0 +1,66 @@
+{
+  "expo": {
+    "name": "PV Mind Cockpit",
+    "slug": "pv-mind-cockpit",
+    "version": "0.1.0",
+    "orientation": "default",
+    "icon": "./assets/icon.png",
+    "scheme": "pvmind",
+    "userInterfaceStyle": "dark",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#0F172A"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "ai.pvmind.cockpit",
+      "buildNumber": "1"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#0F172A"
+      },
+      "package": "ai.pvmind.cockpit",
+      "versionCode": 1,
+      "permissions": ["INTERNET"]
+    },
+    "web": {
+      "bundler": "metro",
+      "output": "single",
+      "favicon": "./assets/favicon.png",
+      "name": "PV Mind Cockpit",
+      "description": "Solar PV + BESS design, simulation, yield and SCADA platform by GridMind EPC",
+      "backgroundColor": "#0F172A",
+      "themeColor": "#1E6FEB"
+    },
+    "macos": {
+      "bundleIdentifier": "ai.pvmind.cockpit.macos",
+      "buildNumber": "1"
+    },
+    "plugins": [
+      "expo-router",
+      "expo-font",
+      [
+        "expo-splash-screen",
+        {
+          "backgroundColor": "#0F172A",
+          "image": "./assets/splash.png",
+          "resizeMode": "contain"
+        }
+      ]
+    ],
+    "experiments": {
+      "typedRoutes": true
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": ""
+      }
+    }
+  }
+}
