@@ -398,4 +398,5 @@ select.form-control { appearance: none; cursor: pointer;
 .toast--error   { background: var(--clr-danger); }
 .toast--warning { background: var(--clr-warning); color: var(--clr-text); }
 
-@keyframes slideIn { from { transform: translateX(40px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+@keyframes slideIn  { from { transform: translateX(40px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+@keyframes slideOut { from { opacity: 1; transform: translateX(0); } to { opacity: 0; transform: translateX(40px); } }

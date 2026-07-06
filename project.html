@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Project Detail — PV-Mind Cockpit</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="project.css" />
+</head>
+<body>
+
+<!-- ── Navbar ────────────────────────────────────────── -->
+<nav class="navbar">
+  <a href="index.html" class="navbar__brand">
+    <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <rect width="28" height="28" rx="6" fill="#1a6b3c"/>
+      <path d="M6 20 L14 8 L22 20" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M8 20 H20" stroke="#f5a623" stroke-width="2.2" stroke-linecap="round"/>
+      <circle cx="14" cy="8" r="2" fill="#f5a623"/>
+    </svg>
+    PV-Mind Cockpit
+  </a>
+  <span class="navbar__spacer"></span>
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <a href="index.html">Dashboard</a>
+    <span aria-hidden="true">›</span>
+    <span id="nav-project-name">Project</span>
+  </nav>
+  <span class="navbar__spacer"></span>
+  <a href="index.html" class="btn btn--ghost btn--sm">← All Projects</a>
+</nav>
+
+<!-- ── Project header ────────────────────────────────── -->
+<div class="project-hero" id="project-hero">
+  <div class="project-hero__inner page-container">
+    <div class="project-hero__icon" id="hero-icon" aria-hidden="true">
+      <svg viewBox="0 0 32 32" fill="none">
+        <path d="M4 26 L16 8 L28 26" stroke="#1a6b3c" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <line x1="4" y1="28" x2="28" y2="28" stroke="#f5a623" stroke-width="2.5" stroke-linecap="round"/>
+        <circle cx="16" cy="8" r="3" fill="#f5a623"/>
+      </svg>
+    </div>
+    <div class="project-hero__info">
+      <div class="flex items-center gap-2 mb-2">
+        <h1 class="project-hero__name" id="hero-name">Loading…</h1>
+        <span id="hero-status"></span>
+      </div>
+      <p class="project-hero__meta" id="hero-meta"></p>
+    </div>
+    <div class="project-hero__actions">
+      <a id="btn-edit-project" href="#" class="btn btn--outline">Edit Project</a>
+    </div>
+  </div>
+</div>
+
+<!-- ── KPI strip ─────────────────────────────────────── -->
+<div class="kpi-strip" id="kpi-strip">
+  <div class="page-container">
+    <div class="kpi-strip__grid" id="kpi-grid">
+      <!-- populated by JS -->
+    </div>
+  </div>
+</div>
+
+<!-- ── Main content ──────────────────────────────────── -->
+<main class="page-container" id="main-content">
+
+  <!-- Shells section -->
+  <section class="proj-section">
+    <h2 class="proj-section__title">Linked Design Modules</h2>
+    <p class="proj-section__desc">All connected project shells created automatically on project creation.</p>
+    <div class="shells-grid" id="shells-grid">
+      <!-- populated by JS -->
+    </div>
+  </section>
+
+  <!-- Data sections -->
+  <div class="proj-data-grid" id="proj-data-grid">
+    <!-- populated by JS -->
+  </div>
+
+</main>
+
+<!-- Toast container -->
+<div id="toast-container" aria-live="polite"></div>
+
+<script type="module" src="project.js"></script>
+</body>
+</html>
