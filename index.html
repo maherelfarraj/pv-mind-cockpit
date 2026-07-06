@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PV Mind SCADA Monitor</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <div class="layout">
+    <aside class="sidebar">
+      <h1>SCADA Monitor</h1>
+      <nav id="nav"></nav>
+    </aside>
+    <main class="content">
+      <header class="topbar">
+        <div>
+          <h2 id="pageTitle">SCADA Overview</h2>
+          <p class="muted" id="clock"></p>
+        </div>
+        <div class="pill" id="fleetHealth">Fleet Health: --</div>
+      </header>
+      <section id="pageContent" class="page-grid"></section>
+    </main>
+  </div>
+  <script src="./app.js"></script>
+</body>
+</html>
