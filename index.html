@@ -4,40 +4,100 @@
     <meta charset="UTF-8" />
     <link rel="stylesheet" href="/src/styles.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Tauri App</title>
+    <title>PV Mind Cockpit Desktop</title>
     <script type="module" src="/src/main.ts" defer></script>
   </head>
 
   <body>
-    <main class="container">
-      <h1>Welcome to Tauri</h1>
+    <div class="app-shell">
+      <header class="app-header">
+        <div>
+          <h1>PV Mind Cockpit</h1>
+          <p>Desktop scaffold for simulation and SCADA workflows.</p>
+        </div>
+        <div class="shortcut-hints">
+          <span>⌘/Ctrl+1 Dashboard</span>
+          <span>⌘/Ctrl+2 Simulation</span>
+          <span>⌘/Ctrl+3 SCADA</span>
+          <span>⌘/Ctrl+I Import</span>
+          <span>⌘/Ctrl+E Export</span>
+          <span>⌘/Ctrl+S Cache</span>
+        </div>
+      </header>
 
-      <div class="row">
-        <a href="https://vite.dev" target="_blank">
-          <img src="/src/assets/vite.svg" class="logo vite" alt="Vite logo" />
-        </a>
-        <a href="https://tauri.app" target="_blank">
-          <img
-            src="/src/assets/tauri.svg"
-            class="logo tauri"
-            alt="Tauri logo"
-          />
-        </a>
-        <a href="https://www.typescriptlang.org/docs" target="_blank">
-          <img
-            src="/src/assets/typescript.svg"
-            class="logo typescript"
-            alt="typescript logo"
-          />
-        </a>
-      </div>
-      <p>Click on the Tauri logo to learn more about the framework</p>
+      <main class="workspace-grid">
+        <section id="dashboard-panel" class="panel">
+          <h2>Large Dashboard Layout</h2>
+          <label>
+            Project Name
+            <input id="project-name" type="text" placeholder="PV + BESS Site" />
+          </label>
+          <label>
+            Project Version
+            <input id="project-version" type="text" placeholder="v1.0" />
+          </label>
+          <div class="metric-row">
+            <article>
+              <strong>Yield Estimate</strong>
+              <p>5.2 GWh / year</p>
+            </article>
+            <article>
+              <strong>CAPEX Snapshot</strong>
+              <p>$2.45M</p>
+            </article>
+            <article>
+              <strong>BESS Runtime</strong>
+              <p>3.7h</p>
+            </article>
+          </div>
+        </section>
 
-      <form class="row" id="greet-form">
-        <input id="greet-input" placeholder="Enter a name..." />
-        <button type="submit">Greet</button>
-      </form>
-      <p id="greet-msg"></p>
-    </main>
+        <section id="simulation-panel" class="panel">
+          <h2>Simulation Workspace</h2>
+          <label>
+            Workspace Notes
+            <textarea id="simulation-notes" rows="8" placeholder="Describe assumptions, weather files, and scenario variants..."></textarea>
+          </label>
+        </section>
+
+        <section id="scada-panel" class="panel">
+          <h2>SCADA Monitor</h2>
+          <label>
+            System Status
+            <select id="scada-status">
+              <option value="online">Online</option>
+              <option value="degraded">Degraded</option>
+              <option value="offline">Offline</option>
+            </select>
+          </label>
+          <button id="scada-sync" type="button">Sync Telemetry Timestamp</button>
+          <p id="scada-last-sync">Last sync: Not synced</p>
+        </section>
+
+        <section id="project-io-panel" class="panel">
+          <h2>Project Import / Export</h2>
+          <div class="button-row">
+            <button id="project-import" type="button">Import Project</button>
+            <button id="project-export" type="button">Export Project</button>
+          </div>
+          <input id="project-import-input" type="file" accept="application/json" hidden />
+          <p id="project-io-status">No import/export action yet.</p>
+        </section>
+
+        <section id="report-panel" class="panel">
+          <h2>Report Preview</h2>
+          <textarea id="report-preview" rows="8" readonly></textarea>
+        </section>
+
+        <section id="cache-panel" class="panel">
+          <h2>Local Cache</h2>
+          <p id="cache-status">Cache empty.</p>
+          <div class="button-row">
+            <button id="save-cache" type="button">Save Cache</button>
+            <button id="clear-cache" type="button">Clear Cache</button>
+          </div>
+        </section>
+      </main>
+    </div>
   </body>
 </html>
