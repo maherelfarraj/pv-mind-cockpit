@@ -15,11 +15,17 @@ on a different feature branch, adjust accordingly.
 - `packages/ui`, `packages/supabase` — resolved from source (`main` → `src/index.ts`), no build step.
 
 ### Running / testing (standard commands live in `README.md` and each `package.json`)
-- Run the web app: `cd apps/expo && npx expo start --web --port 8081` then open `http://localhost:8081`.
+- Run the web app: `cd apps/expo && EXPO_USE_METRO_WORKSPACE_ROOT=1 npx expo start --web --port 8081`, then open `http://localhost:8081`.
 - Tests: `npm test --workspace=packages/calc-engine` (Jest).
 - Typecheck: `npm run typecheck --workspace=packages/calc-engine`.
 
 ### Non-obvious gotchas
+- **The web dev server MUST be started with `EXPO_USE_METRO_WORKSPACE_ROOT=1`.** Because `npm`
+  workspaces hoist `node_modules` to the repo root, without this env var Expo emits a bundle URL
+  like `/../../node_modules/expo-router/entry.bundle` which browsers normalize to
+  `/node_modules/...` → **404 / blank page** (note: `curl --path-as-is` hides this because it does
+  not normalize the path). The env var makes the workspace root Metro's server root so the URL
+  becomes a resolvable `/node_modules/...`.
 - **`calc-engine` must be built before the app can bundle.** The app imports `@pvmind/calc-engine`
   whose `package.json` `main`/`exports` point at `dist/`, so run
   `npm run build --workspace=packages/calc-engine` after installing/changing it. `ui` and
