@@ -1,56 +1,38 @@
-import { useFonts } from 'expo-font';
-import { DarkTheme, DefaultTheme, Stack, ThemeProvider } from 'expo-router';
-import * as SplashScreen from 'expo-splash-screen';
-import { useEffect } from 'react';
-import 'react-native-reanimated';
+import { StatusBar } from 'expo-status-bar';
+import { Stack } from 'expo-router';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
-import { useColorScheme } from '@/components/useColorScheme';
-
-export {
-  // Catch any errors thrown by the Layout component.
-  ErrorBoundary,
-} from 'expo-router';
-
-export const unstable_settings = {
-  // Ensure that reloading on `/modal` keeps a back button present.
-  initialRouteName: '(tabs)',
-};
-
-// Prevent the splash screen from auto-hiding before asset loading is complete.
-SplashScreen.preventAutoHideAsync();
+import { palette } from '@/constants/theme';
+import { AppDataProvider } from '@/providers/AppDataProvider';
 
 export default function RootLayout() {
-  const [loaded, error] = useFonts({
-    SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
-  });
-
-  // Expo Router uses Error Boundaries to catch errors in the navigation tree.
-  useEffect(() => {
-    if (error) throw error;
-  }, [error]);
-
-  useEffect(() => {
-    if (loaded) {
-      SplashScreen.hideAsync();
-    }
-  }, [loaded]);
-
-  if (!loaded) {
-    return null;
-  }
-
-  return <RootLayoutNav />;
-}
-
-function RootLayoutNav() {
-  const colorScheme = useColorScheme();
-
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
-      </Stack>
-    </ThemeProvider>
+    <SafeAreaProvider>
+      <AppDataProvider>
+        <StatusBar style="dark" />
+        <Stack
+          screenOptions={{
+            headerStyle: {
+              backgroundColor: palette.surface,
+            },
+            headerTintColor: palette.text,
+            headerShadowVisible: false,
+            contentStyle: {
+              backgroundColor: palette.background,
+            },
+          }}>
+          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+          <Stack.Screen name="projects/[id]" options={{ title: 'Project Detail' }} />
+          <Stack.Screen name="summaries/pv" options={{ title: 'PV Summary' }} />
+          <Stack.Screen name="summaries/bess" options={{ title: 'BESS Summary' }} />
+          <Stack.Screen name="summaries/yield" options={{ title: 'Yield Summary' }} />
+          <Stack.Screen name="summaries/capex" options={{ title: 'CAPEX Summary' }} />
+          <Stack.Screen name="scada-live" options={{ title: 'SCADA Live' }} />
+          <Stack.Screen name="alarms" options={{ title: 'Alarms' }} />
+          <Stack.Screen name="work-orders" options={{ title: 'Work Orders' }} />
+          <Stack.Screen name="auth/callback" options={{ title: 'Auth Callback' }} />
+        </Stack>
+      </AppDataProvider>
+    </SafeAreaProvider>
   );
 }

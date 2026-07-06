@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "pvmind-mobile",
-    "slug": "pvmind-mobile",
+    "name": "PV Mind Cockpit",
+    "slug": "pv-mind-cockpit",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "pvmindmobile",
+    "scheme": "pvmind",
     "userInterfaceStyle": "automatic",
     "ios": {
       "supportsTablet": true
