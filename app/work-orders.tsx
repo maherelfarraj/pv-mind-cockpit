@@ -5,11 +5,12 @@ import { Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
 import { Screen } from '@/components/Screen';
 import { SectionCard } from '@/components/SectionCard';
 import { StatusBadge } from '@/components/StatusBadge';
+import { storageKey } from '@/constants/branding';
 import { palette, spacing } from '@/constants/theme';
 import { projects } from '@/data/mockData';
 import { useAppData } from '@/providers/AppDataProvider';
 
-const FORM_STORAGE_KEY = 'pvmind.work-order-form';
+const FORM_STORAGE_KEY = storageKey('work-order-form');
 
 const blankForm = {
   projectId: projects[0]?.id ?? '',

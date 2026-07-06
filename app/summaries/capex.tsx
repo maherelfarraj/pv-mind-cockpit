@@ -1,6 +1,7 @@
 import { useLocalSearchParams } from 'expo-router';
 
 import { SummaryScreen } from '@/components/SummaryScreen';
+import { APP_NAME } from '@/constants/branding';
 import { findProjectById } from '@/data/mockData';
 
 export default function CAPEXSummaryScreen() {
@@ -19,7 +20,7 @@ export default function CAPEXSummaryScreen() {
         {
           label: 'Budget tracked',
           value: `$${project?.capexUsdM ?? 208}M`,
-          detail: 'Current project or portfolio CAPEX tracked in the cockpit.',
+          detail: `Current project or portfolio CAPEX tracked in ${APP_NAME}.`,
         },
         {
           label: 'Contingency remaining',
