@@ -1,3 +1,5 @@
+import { MOBILE_AUTH_CALLBACK_URI } from '@/constants/branding';
+
 export type Project = {
   id: string;
   name: string;
@@ -30,7 +32,8 @@ export type ReportItem = {
   description: string;
 };
 
-export const callbackUri = 'pvmind://auth/callback';
+
+export const callbackUri = MOBILE_AUTH_CALLBACK_URI;
 
 export const projects: Project[] = [
   {

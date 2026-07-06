@@ -2,6 +2,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import NetInfo from '@react-native-community/netinfo';
 import { createContext, PropsWithChildren, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 
+import { storageKey } from '@/constants/branding';
+
 type WorkOrderDraftInput = {
   projectId: string;
   title: string;
@@ -25,7 +27,7 @@ type AppDataContextValue = {
   syncPendingDrafts: () => Promise<void>;
 };
 
-const STORAGE_KEY = 'pvmind.work-order-drafts';
+const STORAGE_KEY = storageKey('work-order-drafts');
 
 const AppDataContext = createContext<AppDataContextValue | undefined>(undefined);
 

@@ -5,6 +5,7 @@ import { ResponsiveCardGrid } from '@/components/ResponsiveCardGrid';
 import { Screen } from '@/components/Screen';
 import { SectionCard } from '@/components/SectionCard';
 import { StatusBadge } from '@/components/StatusBadge';
+import { APP_NAME, APP_SUBTITLE } from '@/constants/branding';
 import { palette, spacing } from '@/constants/theme';
 import { projects } from '@/data/mockData';
 import { useAppData } from '@/providers/AppDataProvider';
@@ -40,7 +41,7 @@ export default function DashboardScreen() {
   return (
     <Screen
       title="Dashboard"
-      subtitle="Portfolio control center for solar PV and BESS delivery, yield, and operations.">
+      subtitle={`${APP_NAME} — ${APP_SUBTITLE}`}>
       <SectionCard eyebrow="Portfolio Health" title="Today at a glance">
         <View style={styles.heroHeader}>
           <Text style={styles.heroValue}>3 Active Projects</Text>

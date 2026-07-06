@@ -1,6 +1,8 @@
 import { ScrollViewStyleReset } from 'expo-router/html';
 import type { ReactNode } from 'react';
 
+import { APP_DESCRIPTION, APP_NAME, APP_SUBTITLE, APP_URL, PUBLIC_URL } from '@/constants/branding';
+
 // This file is web-only and used to configure the root HTML for every
 // web page during static rendering.
 // The contents of this function only run in Node.js environments and
@@ -12,6 +14,13 @@ export default function Root({ children }: { children: ReactNode }) {
         <meta charSet="utf-8" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <title>{APP_NAME}</title>
+        <meta name="description" content={APP_DESCRIPTION} />
+        <meta name="application-name" content={APP_NAME} />
+        <meta property="og:title" content={APP_NAME} />
+        <meta property="og:description" content={APP_SUBTITLE} />
+        <meta property="og:url" content={APP_URL} />
+        <link rel="canonical" href={PUBLIC_URL} />
 
         {/*
           Disable body scrolling on web. This makes ScrollView components work closer to how they do on native.
@@ -21,7 +30,6 @@ export default function Root({ children }: { children: ReactNode }) {
 
         {/* Using raw CSS styles as an escape-hatch to ensure the background color never flickers in dark-mode. */}
         <style dangerouslySetInnerHTML={{ __html: responsiveBackground }} />
-        {/* Add any additional <head> elements that you want globally available on web... */}
       </head>
       <body>{children}</body>
     </html>

@@ -1,6 +1,7 @@
 import { useLocalSearchParams } from 'expo-router';
 
 import { SummaryScreen } from '@/components/SummaryScreen';
+import { APP_NAME } from '@/constants/branding';
 import { findProjectById } from '@/data/mockData';
 
 export default function PVSummaryScreen() {
@@ -19,7 +20,7 @@ export default function PVSummaryScreen() {
         {
           label: 'Installed capacity',
           value: `${project?.capacityMw ?? 265} MW`,
-          detail: 'DC plant size currently tracked in the mobile cockpit.',
+          detail: `DC plant size currently tracked in ${APP_NAME}.`,
         },
         {
           label: 'Performance ratio',
