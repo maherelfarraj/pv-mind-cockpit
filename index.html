@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PV Mind Cockpit - Simulation Studio</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Simulation Studio</h1>
+      <p>PVsyst-grade workflow for project simulation and bankability outputs.</p>
+    </header>
+
+    <main class="layout">
+      <nav id="pageNav" class="page-nav"></nav>
+      <section id="pageContent" class="content"></section>
+    </main>
+
+    <div id="overlay" class="overlay hidden" role="status" aria-live="polite">
+      <div class="overlay-card">
+        [ SIMULATION ENGINE: CALCULATING IRRADIANCE, LOSSES, ARRAY ENERGY, GRID ENERGY, PR, P50 /P90, AND REPORT OUTPUTS... ]
+      </div>
+    </div>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
