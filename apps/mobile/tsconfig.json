@@ -1,6 +1,18 @@
 {
   "extends": "expo/tsconfig.base",
   "compilerOptions": {
-    "strict": true
-  }
+    "strict": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    },
+    "types": ["nativewind/types", "expo-router/types"],
+    "jsxImportSource": "nativewind"
+  },
+  "include": [
+    "app",
+    "src",
+    "expo-env.d.ts",
+    "nativewind-env.d.ts"
+  ]
 }

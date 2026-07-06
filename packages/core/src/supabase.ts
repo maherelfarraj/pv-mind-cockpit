@@ -10,9 +10,11 @@ export function createSupabaseBrowserClient(env: SupabaseEnv): SupabaseClient | 
     return null
   }
 
+  const canPersistSession = typeof window !== 'undefined' && typeof window.localStorage !== 'undefined'
+
   return createClient(env.url, env.anonKey, {
     auth: {
-      persistSession: true,
+      persistSession: canPersistSession,
       autoRefreshToken: true
     }
   })
