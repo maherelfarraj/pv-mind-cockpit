@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SLD Preview</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="layout">
+      <section class="panel form-panel">
+        <h1>SLD Preview</h1>
+        <form id="sld-form">
+          <label>
+            Configuration
+            <select id="configuration" name="configuration">
+              <option value="pv-only">PV-only</option>
+              <option value="pv-bess">PV + BESS</option>
+            </select>
+          </label>
+          <label>
+            PV DC Capacity
+            <input id="pvDcCapacity" name="pvDcCapacity" placeholder="e.g. 150 MWp" />
+          </label>
+          <label>
+            AC Capacity
+            <input id="acCapacity" name="acCapacity" placeholder="e.g. 120 MW" />
+          </label>
+          <label>
+            Number of Inverters
+            <input id="inverterCount" name="inverterCount" type="number" min="0" placeholder="e.g. 300" />
+          </label>
+          <label>
+            Transformer Voltage
+            <input id="transformerVoltage" name="transformerVoltage" placeholder="e.g. 33/132 kV" />
+          </label>
+          <label>
+            BESS MW / MWh
+            <input id="bessCapacity" name="bessCapacity" placeholder="e.g. 50 MW / 200 MWh" />
+          </label>
+          <label>
+            Export Limit
+            <input id="exportLimit" name="exportLimit" placeholder="e.g. 100 MW" />
+          </label>
+          <label>
+            Power Factor
+            <input id="powerFactor" name="powerFactor" placeholder="e.g. 0.98" />
+          </label>
+          <label>
+            Grid Energy
+            <input id="gridEnergy" name="gridEnergy" placeholder="e.g. 250 GWh/year" />
+          </label>
+        </form>
+      </section>
+
+      <section class="panel preview-panel">
+        <h2>Dynamic Single-Line Diagram</h2>
+        <div id="diagram" class="diagram"></div>
+        <dl class="summary" id="summary"></dl>
+      </section>
+    </main>
+
+    <script src="./script.js"></script>
+  </body>
+</html>
