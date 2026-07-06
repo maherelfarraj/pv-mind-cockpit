@@ -12,13 +12,13 @@ function normalizeCurrency(currency?: string): string {
 
 function formatValue(
   value: number | null | undefined,
-  formatter: () => string,
+  formatter: (safeValue: number) => string,
 ): string {
   if (!isFiniteNumber(value)) {
     return NEEDS_INPUT;
   }
 
-  return formatter();
+  return formatter(value);
 }
 
 export function safeNumber(value: unknown, fallback = 0): number {
@@ -57,33 +57,33 @@ export function safeDiv(
 export function formatMW(value: number | null | undefined): string {
   return formatValue(
     value,
-    () =>
+    (safeValue) =>
       `${new Intl.NumberFormat('en-US', {
         minimumFractionDigits: 0,
         maximumFractionDigits: 2,
-      }).format(value)} MW`,
+      }).format(safeValue)} MW`,
   );
 }
 
 export function formatMWh(value: number | null | undefined): string {
   return formatValue(
     value,
-    () =>
+    (safeValue) =>
       `${new Intl.NumberFormat('en-US', {
         minimumFractionDigits: 0,
         maximumFractionDigits: 2,
-      }).format(value)} MWh`,
+      }).format(safeValue)} MWh`,
   );
 }
 
 export function formatKWhKwp(value: number | null | undefined): string {
   return formatValue(
     value,
-    () =>
+    (safeValue) =>
       `${new Intl.NumberFormat('en-US', {
         minimumFractionDigits: 0,
         maximumFractionDigits: 2,
-      }).format(value)} kWh/kWp`,
+      }).format(safeValue)} kWh/kWp`,
   );
 }
 
@@ -91,7 +91,7 @@ export function formatCurrency(
   value: number | null | undefined,
   currency = DEFAULT_CURRENCY,
 ): string {
-  return formatValue(value, () => {
+  return formatValue(value, (safeValue) => {
     const normalizedCurrency = normalizeCurrency(currency);
 
     try {
@@ -100,14 +100,14 @@ export function formatCurrency(
         currency: normalizedCurrency,
         minimumFractionDigits: 2,
         maximumFractionDigits: 2,
-      }).format(value);
+      }).format(safeValue);
     } catch {
       return new Intl.NumberFormat('en-US', {
         style: 'currency',
         currency: DEFAULT_CURRENCY,
         minimumFractionDigits: 2,
         maximumFractionDigits: 2,
-      }).format(value);
+      }).format(safeValue);
     }
   });
 }
@@ -115,10 +115,10 @@ export function formatCurrency(
 export function formatPercent(value: number | null | undefined): string {
   return formatValue(
     value,
-    () =>
+    (safeValue) =>
       `${new Intl.NumberFormat('en-US', {
         minimumFractionDigits: 0,
         maximumFractionDigits: 2,
-      }).format(value)}%`,
+      }).format(safeValue)}%`,
   );
 }
